@@ -25,7 +25,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <form class="d-flex">
-        <img src="/images/logos/nav logo.jpeg" alt="KCM Logo-test" width="100px" height="100px">
+        <img src="/images/logos/nav logo.jpeg" alt="KCM Logo-test" width="75px" height="75px">
       </form>
       <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav me-auto">
@@ -34,13 +34,19 @@
           </li>
           {{#if loggedIn}}
           <li class="nav-item">
+            <a class="nav-link {{#if active.mykitchen}}active{{/if}}" href="/mykitchen">My Kitchen</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link {{#if active.mymeals}}active{{/if}}" href="/mymeals">My Meals</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {{#if active.recipes}}active{{/if}}" href="/recipes">Search For Recipes</a>
+            <a class="nav-link {{#if active.shoppinglist}}active{{/if}}" href="/myshoppinglist">My Shopping List</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {{#if active.shoppinglist}}active{{/if}}" href="/myshoppinglist">My Shopping List</a>
+            <a class="nav-link {{#if active.mycalendar}}active{{/if}}" href="/mycalendar">My Calendar</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {{#if active.recipes}}active{{/if}}" href="/recipes">Search For Recipes</a>
           </li>
           <button type="button" id="logout" class="btn btn-dark">Logout</button>
           <script src="/js/logout.js"></script>
