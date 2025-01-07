@@ -108,4 +108,50 @@ router.get('/myshoppinglist', withAuth, async (req, res) => {
   }
 });
 
+
+//GET route for mycalendar page
+router.get('/mycalendar', withAuth, async (req, res) => {
+  try {
+    // Find the logged in user based on the session ID
+    const userData = await User.findByPk(req.session.user_id, {
+      attributes: { exclude: ['password'] },
+      include: [{ model: Recipe }],
+    });
+
+    const user = userData.get({ plain: true });
+
+    //renders my meals page with data received from the database
+    res.render('mycalendar', {
+      ...user,
+      loggedIn: true,
+      active: { mycalendar: true }
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+
+// Displays mykitchen page in handlebars
+router.get('/mykitchen', withAuth, async (req, res) => {
+  try {
+    // Find the logged in user based on the session ID
+    const userData = await User.findByPk(req.session.user_id, {
+      attributes: { exclude: ['password'] },
+      // include: [{ model: Recipe }],
+    });
+
+    const user = userData.get({ plain: true });
+
+    //renders mykitchen page with data received from the database
+    res.render('mykitchen', {
+      ...user,
+      loggedIn: true,
+      active: { mykitchen: true }
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 module.exports = router;
