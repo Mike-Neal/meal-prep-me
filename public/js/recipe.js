@@ -10,21 +10,44 @@ function changeBtn(uri) {
 
 }
 
-async function addToMeals(uri) {
-    const search = uri;
-    let getRequest;
-    if (search) {
-        getRequest = await fetch('/api/recipes', {
-            method: "POST",
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ search })
+// async function addToMeals(uri) {
+//     const search = uri;
+//     const encodedUri = encodeURIComponent(req.body.search)
+//     let getRequest;
+//     if (search) {
+//         getRequest = await fetch(`https://api.edamam.com/api/recipes/v2/by-uri?type=public&uri=${encodedUri}&app_id=${process.env.APP_ID}&app_key=${process.env.API_KEY}`, {
+//             method: "POST",
+//             headers: { 'Content-Type': 'application/json' },
+//             body: JSON.stringify({ search })
 
-        });
-        console.log(getRequest)
+//         });
+//         console.log(getRequest)
+//     }
+//     if (getRequest) {
+//         console.log(getRequest)
+//         changeBtn(uri);
+//     }
+// }
+
+async function addToMeals(uri) {
+    if (!uri) {
+        console.error("URI is not defined.");
+        return;
     }
-    if (getRequest) {
-        console.log(getRequest)
+
+    const encodedUri = encodeURIComponent(uri);
+
+    const response = await fetch(`https://api.edamam.com/api/recipes/v2/by-uri?type=public&uri=${encodedUri}&app_id=${process.env.APP_ID}&app_key=${process.env.API_KEY}`, {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ search: encodedUri }),
+    });
+
+    if (response.ok) {
+        console.log("Recipe added successfully");
         changeBtn(uri);
+    } else {
+        console.error("Failed to add recipe");
     }
 }
 
